@@ -20,6 +20,11 @@ class AuthController extends Controller
     {
         if (!CSRF::check($_POST['csrf'] ?? '')) die('CSRF invalid');
         $u = User::findByUsername($_POST['username']);
+
+        // var_dump($u);
+        // echo password_hash('admin123', PASSWORD_DEFAULT);
+        // exit;
+
         if ($u && password_verify($_POST['password'], $u['password'])) {
             $_SESSION['user'] = ['id' => $u['id'], 'name' => $u['name'], 'username' => $u['username'], 'role' => $u['role']];
             header('Location: /');

@@ -18,4 +18,3 @@ class Router {
         return $obj->$a();
     }
 }
-

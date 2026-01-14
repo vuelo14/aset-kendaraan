@@ -1,7 +1,7 @@
 <?php
 // Konfigurasi aplikasi
 
-define('BASE_URL','http://aset-kendaraan.test');
+define('BASE_URL','');
 
 define('DB_HOST','localhost');
 define('DB_NAME','kendaraan_disnaker');
