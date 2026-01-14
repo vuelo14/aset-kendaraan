@@ -45,4 +45,11 @@ $router->get('/backup', 'BackupController@index');
 $router->get('/backup/run', 'BackupController@run');
 $router->post('/restore/upload', 'BackupController@restore');
 
+$router->get('/usage', 'UsageController@index');
+$router->post('/usage/store', 'UsageController@store');
+$router->get('/usage/byVehicle', 'UsageController@byVehicle');
+$router->get('/usage/create', 'UsageController@create');
+
+
+
 $router->dispatch();
