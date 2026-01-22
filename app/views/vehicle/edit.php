@@ -6,6 +6,12 @@
   <div class="col-md-3"><label class="form-label">Merk</label><input name="merk" class="form-control" value="<?= $v['merk'] ?>" required></div>
   <div class="col-md-3"><label class="form-label">Tipe</label><input name="tipe" class="form-control" value="<?= $v['tipe'] ?>"></div>
   <div class="col-md-3"><label class="form-label">Tahun</label><input name="tahun" type="number" class="form-control" value="<?= $v['tahun'] ?>" required></div>
+  <div class="col-md-3"><label class="form-label">Kondisi</label><select name="kondisi" class="form-select">
+      <option value="B" <?= $v['kondisi'] === 'B' ? 'selected' : '' ?>>Baik</option>
+      <option value="KB" <?= $v['kondisi'] === 'KB' ? 'selected' : '' ?>>Kurang Baik</option>
+      <option value="RR" <?= $v['kondisi'] === 'RR' ? 'selected' : '' ?>>Rusak Ringan</option>
+      <option value="RB" <?= $v['kondisi'] === 'RB' ? 'selected' : '' ?>>Rusak Berat</option>
+    </select></div>
   <div class="col-md-3"><label class="form-label">Jenis</label><select name="jenis" class="form-select">
       <option value="roda2" <?= $v['jenis'] === 'roda2' ? 'selected' : '' ?>>Roda 2</option>
       <option value="roda4" <?= $v['jenis'] === 'roda4' ? 'selected' : '' ?>>Roda 4</option>

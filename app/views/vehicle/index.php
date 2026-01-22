@@ -35,6 +35,7 @@
         <th>Jenis</th>
         <th>Penggunaan</th>
         <th>Status</th>
+        <th>Kondisi</th>
         <th>Penanggung Jawab</th>
         <th>Aksi</th>
       </tr>
@@ -50,6 +51,7 @@
           <td><span class="badge bg-primary"><?= $v['jenis'] ?></span></td>
           <td><?= $v['status_penggunaan'] ?></td>
           <td><?= $v['status_kendaraan'] ?></td>
+          <td><?= $v['kondisi'] ?></td>
           <td><?= $v['current_responsible'] ?></td>
           <td>
             <a href="/vehicles/show?id=<?= $v['id'] ?>" class="btn btn-sm btn-outline-secondary">Lihat</a>

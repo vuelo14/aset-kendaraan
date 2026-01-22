@@ -36,6 +36,10 @@
         <td><?= htmlspecialchars($v['status_kendaraan']) ?></td>
       </tr>
       <tr>
+        <th>Kondisi</th>
+        <td><?= htmlspecialchars($v['kondisi']) ?></td>
+      </tr>
+      <tr>
         <th>Penanggung Jawab (saat ini)</th>
         <td>
           <?php if (!empty($current)): ?>

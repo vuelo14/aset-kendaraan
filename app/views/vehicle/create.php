@@ -5,6 +5,12 @@
   <div class="col-md-3"><label class="form-label">Merk</label><input name="merk" class="form-control" required></div>
   <div class="col-md-3"><label class="form-label">Tipe</label><input name="tipe" class="form-control"></div>
   <div class="col-md-3"><label class="form-label">Tahun</label><input name="tahun" type="number" class="form-control" required></div>
+  <div class="col-md-3"><label class="form-label">Kondisi</label><select name="kondisi" class="form-select">
+      <option value="B">Baik</option>
+      <option value="KB">Kurang Baik</option>
+      <option value="RR">Rusak Ringan</option>
+      <option value="RB">Rusak Berat</option>
+    </select></div>
   <div class="col-md-3"><label class="form-label">Jenis</label><select name="jenis" class="form-select">
       <option value="roda2">Roda 2</option>
       <option value="roda4">Roda 4</option>
