@@ -2,6 +2,8 @@
 
 use Core\Auth;
 use Helpers\CSRF;
+
+$urlPath = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 ?>
 <!doctype html>
 <html lang="id">
@@ -22,36 +24,36 @@ use Helpers\CSRF;
     </div>
     <div class="nav flex-column py-3">
       <?php if (Auth::check()): ?>
-        <a href="/" class="nav-link">
+        <a href="/" class="nav-link <?php echo $urlPath === '/' || $urlPath === '/index.php' ? 'active' : ''; ?>">
           <i class="bi bi-speedometer2 fs-5 me-3"></i> <span>Dashboard</span>
         </a>
-        <a href="/vehicles" class="nav-link">
+        <a href="/vehicles" class="nav-link <?php echo $urlPath === '/vehicles' ? 'active' : ''; ?>">
           <i class="bi bi-car-front-fill fs-5 me-3"></i> <span>Kendaraan</span>
         </a>
-        <a href="/usage" class="nav-link">
+        <a href="/usage" class="nav-link <?php echo $urlPath === '/usage' ? 'active' : ''; ?>">
           <i class="bi bi-person-square fs-5 me-3"></i> <span>Pengguna Kendaraan</span>
         </a>
-        <a href="/maintenance" class="nav-link">
+        <a href="/maintenance" class="nav-link <?php echo $urlPath === '/maintenance' ? 'active' : ''; ?>">
           <i class="bi bi-tools me-2 fs-5 me-3"></i> <span>Pemeliharaan</span>
         </a>
-        <a href="/tax" class="nav-link">
+        <a href="/tax" class="nav-link <?php echo $urlPath === '/tax' ? 'active' : ''; ?>">
           <i class="bi bi-file-earmark-text fs-5 me-3"></i> <span>Pajak</span>
         </a>
-        <a href="/schedule/maintenance" class="nav-link">
+        <a href="/schedule/maintenance" class="nav-link <?php echo $urlPath === '/schedule/maintenance' ? 'active' : ''; ?>">
           <i class="bi bi-calendar-check fs-5 me-3"></i> <span>Jadwal Pemeliharaan</span>
         </a>
-        <a href="/schedule/tax" class="nav-link">
+        <a href="/schedule/tax" class="nav-link <?php echo $urlPath === '/schedule/tax' ? 'active' : ''; ?>">
           <i class="bi bi-calendar-event fs-5 me-3"></i> <span>Jadwal Pajak</span>
         </a>
 
         <?php if (Auth::role() === 'admin'): ?>
-          <a href="/users" class="nav-link">
+          <a href="/users" class="nav-link <?php echo $urlPath === '/users' ? 'active' : ''; ?>">
             <i class="bi bi-people-fill fs-5 me-3"></i> <span>Pengguna</span>
           </a>
-          <a href="/import" class="nav-link">
+          <a href="/import" class="nav-link <?php echo $urlPath === '/import' ? 'active' : ''; ?>">
             <i class="bi bi-arrow-left-right fs-5 me-3"></i> <span>Import/Export</span>
           </a>
-          <a href="/backup" class="nav-link">
+          <a href="/backup" class="nav-link <?php echo $urlPath === '/backup' ? 'active' : ''; ?>">
             <i class="bi bi-database-fill-gear fs-5 me-3"></i> <span>Backup & Restore</span>
           </a>
         <?php endif; ?>

@@ -49,6 +49,9 @@ $router->get('/usage', 'UsageController@index');
 $router->post('/usage/store', 'UsageController@store');
 $router->get('/usage/byVehicle', 'UsageController@byVehicle');
 $router->get('/usage/create', 'UsageController@create');
+$router->get('/usage/edit', 'UsageController@edit');
+$router->post('/usage/update', 'UsageController@update');
+$router->post('/usage/delete', 'UsageController@delete');
 
 
 

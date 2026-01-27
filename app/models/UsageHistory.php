@@ -52,6 +52,48 @@ class UsageHistory
         return $pdo->lastInsertId();
     }
 
+    public static function find($id)
+    {
+        $pdo = Database::getInstance()->pdo();
+        $stmt = $pdo->prepare('SELECT * FROM usage_history WHERE id=?');
+        $stmt->execute([$id]);
+        return $stmt->fetch();
+    }
+
+    public static function update($id, $data)
+    {
+        $pdo = Database::getInstance()->pdo();
+
+        // Normalisasi tanggal: start_date wajib, end_date boleh kosong → NULL
+        $start_date = !empty($data['start_date']) ? $data['start_date'] : null;
+        $end_date   = !empty($data['end_date'])   ? $data['end_date']   : null;
+
+        // Validasi sederhana
+        if ($start_date === null) {
+            throw new \InvalidArgumentException('start_date wajib diisi');
+        }
+
+        $sql = "UPDATE usage_history
+                SET pemakai = ?, jabatan = ?, start_date = ?, end_date = ?
+                WHERE id = ?";
+
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([
+            $data['pemakai'],
+            $data['jabatan'] ?? null,
+            $start_date,
+            $end_date,    // <= NULL bila kosong
+            $id
+        ]);
+    }
+
+    public static function delete($id)
+    {
+        $pdo = Database::getInstance()->pdo();
+        $stmt = $pdo->prepare('DELETE FROM usage_history WHERE id=?');
+        $stmt->execute([$id]);
+    }
+
     public static function currentResponsible($vehicle_id)
     {
         $pdo = Database::getInstance()->pdo();

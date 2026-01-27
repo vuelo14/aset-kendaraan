@@ -2,6 +2,7 @@
 // Konfigurasi aplikasi
 
 define('BASE_URL', '');
+define('APP_PATH', dirname(__DIR__) . '/app');
 
 define('DB_HOST', 'localhost');
 define('DB_NAME', 'kendaraan_disnaker');

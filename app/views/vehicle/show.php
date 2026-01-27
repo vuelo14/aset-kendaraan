@@ -1,3 +1,5 @@
+<?php include APP_PATH . '/views/layouts/message.php'; ?>
+
 <h3>Detail Kendaraan</h3>
 <div class="row g-3">
   <div class="col-md-4">
@@ -68,6 +70,7 @@
         <th>Pemakai</th>
         <th>Jabatan</th>
         <th>Periode</th>
+        <th>Aksi</th>
       </tr>
     </thead>
     <tbody>
@@ -78,6 +81,10 @@
             <td>
               <?= htmlspecialchars($h['start_date']) ?> s/d
               <?= htmlspecialchars($h['end_date'] ?? 'sekarang') ?>
+            </td>
+            <td>
+              <a href="/usage/edit?id=<?= $h['id'] ?>" class="btn btn-sm btn-outline-primary"><i class="bi bi-pencil"></i></a>
+              <a href="/usage/delete?id=<?= $h['id'] ?>" class="btn btn-sm btn-outline-danger" onclick="return confirm('Hapus data?')"><i class="bi bi-trash"></i></a>
             </td>
           </tr>
         <?php endforeach;

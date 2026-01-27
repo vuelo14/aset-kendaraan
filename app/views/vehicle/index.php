@@ -48,19 +48,20 @@
           <td><?= htmlspecialchars($v['merk']) ?></td>
           <td><?= htmlspecialchars($v['tipe']) ?></td>
           <td><?= htmlspecialchars($v['tahun']) ?></td>
-          <td><span class="badge bg-primary"><?= $v['jenis'] ?></span></td>
+          <td><span class="badge <?php if ($v['jenis'] === 'roda2') echo 'bg-primary';
+                                  else echo 'bg-success'; ?>"><?= $v['jenis'] ?></span></td>
           <td><?= $v['status_penggunaan'] ?></td>
           <td><?= $v['status_kendaraan'] ?></td>
           <td><?= $v['kondisi'] ?></td>
           <td><?= $v['current_responsible'] ?></td>
           <td>
-            <a href="/vehicles/show?id=<?= $v['id'] ?>" class="btn btn-sm btn-outline-secondary">Lihat</a>
+            <a href="/vehicles/show?id=<?= $v['id'] ?>" class="btn btn-sm btn-outline-secondary"><i class="bi bi-eye"></i></a>
             <?php if (Core\Auth::role() === 'admin'): ?>
-              <a href="/vehicles/edit?id=<?= $v['id'] ?>" class="btn btn-sm btn-outline-primary">Edit</a>
+              <a href="/vehicles/edit?id=<?= $v['id'] ?>" class="btn btn-sm btn-outline-primary"><i class="bi bi-pencil"></i></a>
               <form method="post" action="/vehicles/delete" class="d-inline" onsubmit="return confirm('Hapus data?')">
                 <input type="hidden" name="csrf" value="<?= Helpers\CSRF::token() ?>">
                 <input type="hidden" name="id" value="<?= $v['id'] ?>">
-                <button class="btn btn-sm btn-outline-danger">Hapus</button>
+                <button class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i></button>
               </form>
             <?php endif; ?>
           </td>

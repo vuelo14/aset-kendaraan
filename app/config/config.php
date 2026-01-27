@@ -2,6 +2,7 @@
 // Konfigurasi aplikasi
 
 define('BASE_URL', '');
+define('APP_PATH', dirname(__DIR__));
 
 define('DB_HOST', 'db');
 define('DB_NAME', 'web_aset_kendaraan');
