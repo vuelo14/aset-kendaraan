@@ -23,9 +23,13 @@ class Vehicle
             $sql .= ' AND pajak_status=?';
             $params[] = $filters['status_pajak'];
         }
+        if (!empty($filters['status_penggunaan'])) {
+            $sql .= ' AND status_penggunaan=?';
+            $params[] = $filters['status_penggunaan'];
+        }
         if (!empty($filters['penanggung'])) {
             $sql .= ' AND current_responsible LIKE ?';
-            $params[] = '%' + $filters['penanggung'] + '%';
+            $params[] = '%' . $filters['penanggung'] . '%';
         }
         $sql .= ' ORDER BY id DESC';
         $stmt = $pdo->prepare($sql);

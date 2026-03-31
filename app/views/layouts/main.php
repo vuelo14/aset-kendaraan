@@ -30,16 +30,20 @@ $urlPath = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
         <a href="/vehicles" class="nav-link <?php echo $urlPath === '/vehicles' ? 'active' : ''; ?>">
           <i class="bi bi-car-front-fill fs-5 me-3"></i> <span>Kendaraan</span>
         </a>
-        <a href="/usage" class="nav-link <?php echo $urlPath === '/usage' ? 'active' : ''; ?>">
-          <i class="bi bi-person-square fs-5 me-3"></i> <span>Pengguna Kendaraan</span>
-        </a>
         <a href="/maintenance" class="nav-link <?php echo $urlPath === '/maintenance' ? 'active' : ''; ?>">
-          <i class="bi bi-tools me-2 fs-5 me-3"></i> <span>Pemeliharaan</span>
+          <i class="bi bi-tools fs-5 me-3"></i> <span>Pemeliharaan</span>
+        </a>
+        <a href="/komponen" class="nav-link <?php echo $urlPath === '/komponen' ? 'active' : ''; ?>">
+          <i class="bi bi-box fs-5 me-3"></i> <span>Komponen & Jasa</span>
+        </a>
+        <a href="/budget" class="nav-link <?php echo $urlPath === '/budget' ? 'active' : ''; ?>">
+          <i class="bi bi-wallet2 fs-5 me-3"></i> <span>Anggaran</span>
         </a>
         <a href="/tax" class="nav-link <?php echo $urlPath === '/tax' ? 'active' : ''; ?>">
           <i class="bi bi-file-earmark-text fs-5 me-3"></i> <span>Pajak</span>
         </a>
-        <a href="/schedule/maintenance" class="nav-link <?php echo $urlPath === '/schedule/maintenance' ? 'active' : ''; ?>">
+        <a href="/schedule/maintenance"
+          class="nav-link <?php echo $urlPath === '/schedule/maintenance' ? 'active' : ''; ?>">
           <i class="bi bi-calendar-check fs-5 me-3"></i> <span>Jadwal Pemeliharaan</span>
         </a>
         <a href="/schedule/tax" class="nav-link <?php echo $urlPath === '/schedule/tax' ? 'active' : ''; ?>">
@@ -55,6 +59,9 @@ $urlPath = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
           </a>
           <a href="/backup" class="nav-link <?php echo $urlPath === '/backup' ? 'active' : ''; ?>">
             <i class="bi bi-database-fill-gear fs-5 me-3"></i> <span>Backup & Restore</span>
+          </a>
+          <a href="/logs" class="nav-link <?php echo $urlPath === '/logs' ? 'active' : ''; ?>">
+            <i class="bi bi-journal-text fs-5 me-3"></i> <span>Log Aktivitas</span>
           </a>
         <?php endif; ?>
         <a href="/logout" class="nav-link text-danger fw-bold">
@@ -80,11 +87,13 @@ $urlPath = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
             <i class="bi bi-moon-stars-fill" id="themeIcon"></i>
           </button>
           <?php
-          $display_name = $_SESSION['fullname'] ?? $_SESSION['username'] ?? 'User';
+          $display_name = Auth::user()['name'] ?? 'User';
           ?>
           <div class="dropdown">
-            <a href="#" class="d-flex align-items-center text-decoration-none dropdown-toggle" id="userMenu" data-bs-toggle="dropdown">
-              <img src="https://ui-avatars.com/api/?name=<?= urlencode($display_name) ?>" alt="mdo" width="32" height="32" class="rounded-circle me-2">
+            <a href="#" class="d-flex align-items-center text-decoration-none dropdown-toggle" id="userMenu"
+              data-bs-toggle="dropdown">
+              <img src="https://ui-avatars.com/api/?name=<?= urlencode($display_name) ?>" alt="mdo" width="32"
+                height="32" class="rounded-circle me-2">
               <span class="d-none d-md-inline text-body"><?= htmlspecialchars($display_name) ?></span>
             </a>
             <ul class="dropdown-menu dropdown-menu-end shadow">
@@ -93,7 +102,8 @@ $urlPath = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
               <li>
                 <hr class="dropdown-divider">
               </li>
-              <li><a class="dropdown-item text-danger" href="logout"><i class="bi bi-box-arrow-right me-2"></i>Logout</a></li>
+              <li><a class="dropdown-item text-danger" href="logout"><i
+                    class="bi bi-box-arrow-right me-2"></i>Logout</a></li>
             </ul>
           </div>
         </div>
@@ -101,6 +111,7 @@ $urlPath = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
     </nav>
 
     <div class="container-fluid p-4">
+      <?php include __DIR__ . '/message.php'; ?>
       <?php include $viewFile; ?>
     </div>
   </div>

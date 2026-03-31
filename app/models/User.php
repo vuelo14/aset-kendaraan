@@ -25,4 +25,46 @@ class User
         $stmt->execute([$data['name'], $data['username'], password_hash($data['password'], PASSWORD_DEFAULT), $data['role']]);
         return $pdo->lastInsertId();
     }
+    public static function find($id)
+    {
+        $pdo = Database::getInstance()->pdo();
+        $stmt = $pdo->prepare('SELECT * FROM users WHERE id=?');
+        $stmt->execute([$id]);
+        return $stmt->fetch();
+    }
+    public static function update($id, $data)
+    {
+        $pdo = Database::getInstance()->pdo();
+
+        // Cek apakah password diisi atau kosong
+        if (!empty($data['password'])) {
+            // Jika password diisi, update password juga
+            $sql = "UPDATE users SET name=?, username=?, role=?, password=? WHERE id=?";
+            $params = [
+                $data['name'],
+                $data['username'],
+                $data['role'],
+                password_hash($data['password'], PASSWORD_DEFAULT),
+                $id
+            ];
+        } else {
+            // Jika password kosong, jangan ubah password lama
+            $sql = "UPDATE users SET name=?, username=?, role=? WHERE id=?";
+            $params = [
+                $data['name'],
+                $data['username'],
+                $data['role'],
+                $id
+            ];
+        }
+
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute($params);
+    }
+    public static function delete($id)
+    {
+        $pdo = Database::getInstance()->pdo();
+        $stmt = $pdo->prepare('DELETE FROM users WHERE id=?');
+        $stmt->execute([$id]);
+    }
 }

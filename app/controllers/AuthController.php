@@ -8,6 +8,18 @@ use Helpers\CSRF;
 
 class AuthController extends Controller
 {
+    protected function render($view, $params = []) {
+        if ($view === 'auth/login') {
+            extract($params);
+            $viewFile = __DIR__ . '/../views/' . $view . '.php';
+            // Use the custom auth layout
+            include __DIR__ . '/../views/layouts/auth.php';
+        } else {
+            // Fallback to parent render (normal layout)
+            parent::render($view, $params);
+        }
+    }
+
     public function login()
     {
         if (isset($_SESSION['user'])) {

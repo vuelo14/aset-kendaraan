@@ -70,6 +70,8 @@ class UsageController extends Controller
         ];
         UsageHistory::create($data);
 
+        $_SESSION['success'] = "Data riwayat pemakaian berhasil ditambahkan!";
+
         // Kembali ke halaman detail kendaraan
         header('Location: /vehicles/show?id=' . $_POST['vehicle_id']);
     }
@@ -107,6 +109,8 @@ class UsageController extends Controller
         if (!CSRF::check($_POST['csrf'] ?? '')) die('CSRF invalid');
 
         UsageHistory::delete($_POST['id']);
+
+        $_SESSION['success'] = "Data riwayat pemakaian berhasil dihapus!";
 
         // Kembali ke halaman detail kendaraan
         header('Location: /vehicles/show?id=' . $_POST['vehicle_id']);

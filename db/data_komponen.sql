@@ -1,0 +1,73 @@
+-- Adminer 4.8.1 MySQL 12.2.2-MariaDB-ubu2404 dump
+
+SET NAMES utf8;
+SET time_zone = '+00:00';
+SET foreign_key_checks = 0;
+SET sql_mode = 'NO_AUTO_VALUE_ON_ZERO';
+
+SET NAMES utf8mb4;
+
+INSERT INTO `komponen` (`id`, `nama`, `jenis`, `satuan`, `harga`) VALUES
+(101,	'Oli Mesin Yamalube Matic 20W-40 (0.8L)',	'komponen',	'Botol',	58000.00),
+(102,	'Oli Mesin AHM MPX 1 10W-30 (0.8L) - Bebek',	'komponen',	'Botol',	60000.00),
+(103,	'Oli Mesin AHM MPX 2 10W-30 (0.8L) - Matic',	'komponen',	'Botol',	66000.00),
+(104,	'Oli Gardan / Gear Matic (120ml)',	'komponen',	'Botol',	21600.00),
+(105,	'Busi NGK C7HSA (Bebek/Matic Standar)',	'komponen',	'Pcs',	24000.00),
+(106,	'Busi Denso U22FS-U (Bebek/Matic Standar)',	'komponen',	'Pcs',	21600.00),
+(107,	'Filter Udara Vario/Mio',	'komponen',	'Pcs',	54000.00),
+(108,	'Kampas Rem Depan Cakram (Honda/Yamaha Bebek/Matic)',	'komponen',	'Set',	68000.00),
+(109,	'Kampas Rem Belakang Tromol (Matic/Bebek)',	'komponen',	'Set',	58000.00),
+(110,	'Ban Luar Depan Motor Matic 80/90-14',	'komponen',	'Pcs',	216000.00),
+(111,	'Ban Luar Belakang Motor Matic 90/90-14',	'komponen',	'Pcs',	264000.00),
+(112,	'Ban Luar Depan Bebek 70/90-17',	'komponen',	'Pcs',	192000.00),
+(113,	'Ban Luar Belakang Bebek 80/90-17',	'komponen',	'Pcs',	222000.00),
+(114,	'Ban Dalam Motor Ring 14',	'komponen',	'Pcs',	42000.00),
+(115,	'Ban Dalam Motor Ring 17',	'komponen',	'Pcs',	42000.00),
+(116,	'V-Belt (Vario/Mio/Lexi)',	'komponen',	'Pcs',	144000.00),
+(117,	'Roller CVT Set (Isi 6)',	'komponen',	'Set',	78000.00),
+(118,	'Gear Set + Rantai (Revo, Supra Fit, Vega)',	'komponen',	'Set',	198000.00),
+(119,	'Aki Kering Motor GTZ4V / MTZ5S (Bebek/Matic)',	'komponen',	'Pcs',	222000.00),
+(120,	'Bohlam Lampu Depan Motor',	'komponen',	'Pcs',	30000.00),
+(121,	'Oli Mesin Fastron Gold 5W-30 (1 Liter)',	'komponen',	'Liter',	222000.00),
+(122,	'Oli Mesin TMO 10W-40 (1 Liter - Avanza/Veloz/Rush)',	'komponen',	'Liter',	114000.00),
+(123,	'Oli Mesin Diesel Meditran 15W-40 (1 Liter - Panther/Kijang Diesel)',	'komponen',	'Liter',	78000.00),
+(124,	'Oli Gardan SAE 90 / 140 (1 Liter)',	'komponen',	'Liter',	95000.00),
+(125,	'Oli Transmisi Manual SAE 80W-90 (1 Liter)',	'komponen',	'Liter',	102000.00),
+(126,	'Minyak Rem DOT 3 / DOT 4',	'komponen',	'Botol',	42000.00),
+(127,	'Air Radiator Coolant TMO (1 Galon)',	'komponen',	'Galon',	102000.00),
+(128,	'Filter Oli (Avanza/Xenia/Rush/Veloz)',	'komponen',	'Pcs',	42000.00),
+(129,	'Filter Oli (Kijang/Panther)',	'komponen',	'Pcs',	66000.00),
+(130,	'Filter Udara Denso (Avanza/Xenia)',	'komponen',	'Pcs',	144000.00),
+(131,	'Filter Udara (Panther/Kijang)',	'komponen',	'Pcs',	102000.00),
+(132,	'Filter AC / Kabin Sakura',	'komponen',	'Pcs',	90000.00),
+(133,	'Filter Solar (Khusus Panther/Kijang Diesel)',	'komponen',	'Pcs',	78000.00),
+(134,	'Kampas Rem Depan (Brake Pad) Bendix',	'komponen',	'Set',	480000.00),
+(135,	'Kampas Rem Belakang Tromol (Brake Shoe)',	'komponen',	'Set',	300000.00),
+(136,	'Shockbreaker Depan KYB (Sepasang)',	'komponen',	'Set',	1440000.00),
+(137,	'Tie Rod End / Long Tie Rod',	'komponen',	'Pcs',	210000.00),
+(138,	'Ball Joint Bawah',	'komponen',	'Pcs',	270000.00),
+(139,	'Ban Luar 185/70 R14 (Avanza/Xenia Lama)',	'komponen',	'Pcs',	780000.00),
+(140,	'Ban Luar 185/65 R15 (Veloz/Avanza Baru)',	'komponen',	'Pcs',	1020000.00),
+(141,	'Ban Luar 215/65 R16 (Rush/Terios)',	'komponen',	'Pcs',	1140000.00),
+(142,	'Busi Denso XU22PR9 (Avanza/Xenia)',	'komponen',	'Pcs',	42000.00),
+(143,	'Busi NGK Iridium',	'komponen',	'Pcs',	114000.00),
+(144,	'Aki Mobil NS40Z / 35Ah',	'komponen',	'Pcs',	1020000.00),
+(145,	'Aki Mobil N50 / NS60 (Panther/Kijang)',	'komponen',	'Pcs',	1140000.00),
+(146,	'Wiper Blade Set (Sepasang)',	'komponen',	'Set',	144000.00),
+(147,	'Freon AC R134a (Tambah Freon)',	'komponen',	'Layanan',	180000.00),
+(148,	'Jasa Ganti Oli Motor',	'jasa',	'Layanan',	18000.00),
+(149,	'Jasa Service Ringan Motor (Karbu/Injeksi)',	'jasa',	'Layanan',	54000.00),
+(150,	'Jasa Service CVT Matic / Rantai Bebek',	'jasa',	'Layanan',	42000.00),
+(151,	'Jasa Ganti Kampas Rem Motor',	'jasa',	'Layanan',	24000.00),
+(152,	'Jasa Tambal Ban Dalam / Tubeless',	'jasa',	'Layanan',	24000.00),
+(153,	'Jasa Ganti Ban Motor (Per Roda)',	'jasa',	'Layanan',	36000.00),
+(154,	'Jasa Ganti Oli Mobil',	'jasa',	'Layanan',	42000.00),
+(155,	'Jasa Tune Up Mesin Mobil',	'jasa',	'Layanan',	300000.00),
+(156,	'Jasa Ganti Kampas Rem Mobil (Per Roda)',	'jasa',	'Layanan',	60000.00),
+(157,	'Jasa Spooring Mobil',	'jasa',	'Layanan',	180000.00),
+(158,	'Jasa Balancing Mobil (Per Roda)',	'jasa',	'Layanan',	36000.00),
+(159,	'Jasa Service AC Ringan Mobil',	'jasa',	'Layanan',	240000.00),
+(160,	'Jasa Cuci Kendaraan (Motor)',	'jasa',	'Layanan',	18000.00),
+(161,	'Jasa Cuci Kendaraan (Mobil + Vacuum)',	'jasa',	'Layanan',	60000.00);
+
+-- 2026-02-23 05:54:06

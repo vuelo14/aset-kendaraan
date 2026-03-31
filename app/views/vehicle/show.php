@@ -62,37 +62,98 @@
   </div>
 </div>
 
-<h4 class="mt-4">Riwayat Penanggung Jawab</h4>
-<div class="table-responsive">
-  <table class="table table-striped table-hover">
-    <thead>
-      <tr>
-        <th>Pemakai</th>
-        <th>Jabatan</th>
-        <th>Periode</th>
-        <th>Aksi</th>
-      </tr>
-    </thead>
-    <tbody>
-      <?php if (!empty($history)): foreach ($history as $h): ?>
-          <tr>
-            <td><?= htmlspecialchars($h['pemakai']) ?></td>
-            <td><?= htmlspecialchars($h['jabatan'] ?? '-') ?></td>
-            <td>
-              <?= htmlspecialchars($h['start_date']) ?> s/d
-              <?= htmlspecialchars($h['end_date'] ?? 'sekarang') ?>
-            </td>
-            <td>
-              <a href="/usage/edit?id=<?= $h['id'] ?>" class="btn btn-sm btn-outline-primary"><i class="bi bi-pencil"></i></a>
-              <a href="/usage/delete?id=<?= $h['id'] ?>" class="btn btn-sm btn-outline-danger" onclick="return confirm('Hapus data?')"><i class="bi bi-trash"></i></a>
-            </td>
-          </tr>
-        <?php endforeach;
-      else: ?>
+<ul class="nav nav-tabs mt-4" id="vehicleTab" role="tablist">
+  <li class="nav-item">
+    <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#usage" type="button">Riwayat Penanggung Jawab</button>
+  </li>
+  <li class="nav-item">
+    <button class="nav-link" data-bs-toggle="tab" data-bs-target="#maintenance" type="button">Riwayat Servis</button>
+  </li>
+  <li class="nav-item">
+    <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tax" type="button">Riwayat Pajak</button>
+  </li>
+</ul>
+
+<div class="tab-content p-3 border border-top-0 bg-white">
+  <div class="tab-pane fade show active" id="usage">
+    <table class="table table-striped table-hover">
+      <thead>
         <tr>
-          <td colspan="3" class="text-muted">Belum ada riwayat.</td>
+          <th>Pemakai</th>
+          <th>Jabatan</th>
+          <th>Periode</th>
+          <th>Aksi</th>
         </tr>
-      <?php endif; ?>
-    </tbody>
-  </table>
+      </thead>
+      <tbody>
+        <?php if (!empty($history)): foreach ($history as $h): ?>
+            <tr>
+              <td><?= htmlspecialchars($h['pemakai']) ?></td>
+              <td><?= htmlspecialchars($h['jabatan'] ?? '-') ?></td>
+              <td><?= $h['start_date'] ?> s/d <?= $h['end_date'] ?? 'skrg' ?></td>
+              <td>
+                <a href="/usage/edit?id=<?= $h['id'] ?>" class="btn btn-sm btn-outline-primary"><i class="bi bi-pencil"></i></a>
+              </td>
+            </tr>
+        <?php endforeach;
+        else: echo '<tr><td colspan="4">Belum ada data.</td></tr>';
+        endif; ?>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="tab-pane fade" id="maintenance">
+    <?php
+    // Kita perlu fetch data ini di Controller nanti
+    $maintenance_list = \Models\Maintenance::byVehicle($v['id']);
+    ?>
+    <a href="/maintenance?vehicle_id=<?= $v['id'] ?>" class="btn btn-sm btn-primary mb-2">+ Input Servis</a>
+    <table class="table table-sm">
+      <thead>
+        <tr>
+          <th>Tanggal</th>
+          <th>Jenis</th>
+          <th>Bengkel</th>
+          <th>Biaya</th>
+        </tr>
+      </thead>
+      <tbody>
+        <?php foreach ($maintenance_list as $m): ?>
+          <tr>
+            <td><?= $m['date'] ?></td>
+            <td><?= $m['jenis'] ?></td>
+            <td><?= $m['bengkel'] ?></td>
+            <td>Rp <?= number_format($m['biaya'], 0, ',', '.') ?></td>
+          </tr>
+        <?php endforeach; ?>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="tab-pane fade" id="tax">
+    <?php
+    $tax_list = \Models\Tax::byVehicle($v['id']);
+    ?>
+    <a href="/tax?vehicle_id=<?= $v['id'] ?>" class="btn btn-sm btn-primary mb-2">+ Input Pajak</a>
+    <table class="table table-sm">
+      <thead>
+        <tr>
+          <th>Tanggal</th>
+          <th>Jenis</th>
+          <th>Status</th>
+          <th>Biaya</th>
+        </tr>
+      </thead>
+      <tbody>
+        <?php foreach ($tax_list as $t): ?>
+          <tr>
+            <td><?= $t['date'] ?></td>
+            <td><?= $t['jenis'] ?></td>
+            <td><?= $t['status'] ?></td>
+            <td>Rp <?= number_format($t['biaya'], 0, ',', '.') ?></td>
+          </tr>
+        <?php endforeach; ?>
+      </tbody>
+    </table>
+  </div>
 </div>
