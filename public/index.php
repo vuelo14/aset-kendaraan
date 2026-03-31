@@ -70,6 +70,14 @@ $router->get('/users/edit', 'UserController@edit');
 $router->post('/users/update', 'UserController@update');
 $router->post('/users/delete', 'UserController@delete');
 
+$router->get('/plate-history', 'PlateHistoryController@index');
+$router->get('/plate-history/create', 'PlateHistoryController@create');
+$router->post('/plate-history/store', 'PlateHistoryController@store');
+$router->get('/plate-history/edit', 'PlateHistoryController@edit');
+$router->post('/plate-history/update', 'PlateHistoryController@update');
+$router->post('/plate-history/delete', 'PlateHistoryController@delete');
+
+
 $router->get('/import', 'ImportExportController@index');
 $router->post('/import/csv', 'ImportExportController@importCSV');
 $router->get('/export/vehicles/csv', 'ImportExportController@exportVehiclesCSV');

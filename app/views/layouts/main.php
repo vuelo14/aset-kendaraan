@@ -30,6 +30,9 @@ $urlPath = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
         <a href="/vehicles" class="nav-link <?php echo $urlPath === '/vehicles' ? 'active' : ''; ?>">
           <i class="bi bi-car-front-fill fs-5 me-3"></i> <span>Kendaraan</span>
         </a>
+        <a href="/plate-history" class="nav-link <?php echo $urlPath === '/plate-history' ? 'active' : ''; ?>">
+          <i class="bi bi-card-heading fs-5 me-3"></i> <span>Riwayat Plat</span>
+        </a>
         <a href="/maintenance" class="nav-link <?php echo $urlPath === '/maintenance' ? 'active' : ''; ?>">
           <i class="bi bi-tools fs-5 me-3"></i> <span>Pemeliharaan</span>
         </a>
