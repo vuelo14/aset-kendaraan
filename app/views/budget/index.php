@@ -83,6 +83,7 @@
                             <thead class="table-light">
                                 <tr>
                                     <th>Kendaraan</th>
+                                    <th>Penanggung Jawab</th>
                                     <th>Kategori</th>
                                     <th class="text-end">Limit Per Unit</th>
                                     <th class="text-end">Realisasi Per Unit</th>
@@ -108,6 +109,9 @@
                                             <small class="text-muted">
                                                 <?= htmlspecialchars($u['merk']) ?>
                                             </small>
+                                        </td>
+                                        <td>
+                                            <?= htmlspecialchars($u['current_responsible'] ?? '-') ?>
                                         </td>
                                         <td><span class="badge bg-secondary">
                                                 <?= htmlspecialchars($u['category_name']) ?>

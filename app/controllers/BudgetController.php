@@ -4,6 +4,7 @@ namespace Controllers;
 use Core\Controller;
 use Core\Auth;
 use Models\Budget;
+use Models\UsageHistory;
 use Helpers\CSRF;
 
 class BudgetController extends Controller
@@ -14,6 +15,13 @@ class BudgetController extends Controller
 
         $budget_monitoring = Budget::getBudgetMonitoring();
         $unit_budget_monitoring = Budget::getUnitBudgetMonitoring();
+
+        // Tambahkan penanggung jawab dari riwayat
+        foreach ($unit_budget_monitoring as &$u) {
+            $u['current_responsible'] = UsageHistory::currentResponsible($u['vehicle_id']);
+        }
+        unset($u);
+
 
         $this->render('budget/index', compact('budget_monitoring', 'unit_budget_monitoring'));
     }
