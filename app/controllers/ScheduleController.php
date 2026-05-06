@@ -5,6 +5,7 @@ namespace Controllers;
 use Core\Controller;
 use Core\Auth;
 use Models\Schedule;
+use Models\UsageHistory;
 use Helpers\CSRF;
 use Models\AuditLog;
 use Models\Vehicle;
@@ -68,6 +69,10 @@ class ScheduleController extends Controller
         $vehicles = Vehicle::all();
         $selected_id = $_GET['vehicle_id'] ?? null;
         $list = Schedule::allTax();
+        foreach ($list as &$l) {
+            $l['current_responsible'] = UsageHistory::currentResponsible($l['vehicle_id']);
+        }
+        unset($l);
         $this->render('schedule/tax', compact('list', 'vehicles', 'selected_id'));
     }
     public function storeTax()

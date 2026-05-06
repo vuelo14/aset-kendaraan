@@ -61,6 +61,7 @@
                             <tr>
                                 <th>Kendaraan</th>
                                 <th>Jenis</th>
+                                <th>Penanggung Jawab</th>
                                 <th>Deskripsi</th>
                                 <th>Perkiraan Biaya</th>
                                 <th>Interval</th>
@@ -98,6 +99,9 @@
                                         <?php else: ?>
                                             <span class="badge bg-secondary">Tahunan</span>
                                         <?php endif; ?>
+                                    </td>
+                                    <td>
+                                        <?= htmlspecialchars($r['current_responsible'] ?? '-') ?>
                                     </td>
                                     <td><?= htmlspecialchars($r['description']) ?></td>
                                     <td>Rp <?= number_format($r['estimated_cost'] ?? 0, 0, ',', '.') ?></td>
