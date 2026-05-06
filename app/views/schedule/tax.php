@@ -99,6 +99,10 @@
                                         <?php else: ?>
                                             <span class="badge bg-secondary">Tahunan</span>
                                         <?php endif; ?>
+                                        <span
+                                            class="badge <?= ($r['category_name'] == 'roda4' ? 'bg-success' : 'bg-primary') ?>">
+                                            <?= htmlspecialchars($r['category_name'] == 'roda2' ? 'Roda 2' : 'Roda 4') ?>
+                                        </span>
                                     </td>
                                     <td>
                                         <?= htmlspecialchars($r['current_responsible'] ?? '-') ?>
