@@ -46,16 +46,49 @@ class Vehicle
     public static function create($data)
     {
         $pdo = Database::getInstance()->pdo();
-        $stmt = $pdo->prepare('INSERT INTO vehicles (plat, merk, tipe, tahun, jenis, status_penggunaan, status_kendaraan, foto_path, kondisi, current_responsible) VALUES (?,?,?,?,?,?,?,?,?,?)');
-        $stmt->execute([$data['plat'], $data['merk'], $data['tipe'], $data['tahun'], $data['jenis'], $data['status_penggunaan'], $data['status_kendaraan'], $data['foto_path'], $data['kondisi'], $data['current_responsible']]);
+        $budget_cat = !empty($data['budget_category_id']) ? $data['budget_category_id'] : null;
+        $budget_limit = (!empty($data['budget_limit']) || (isset($data['budget_limit']) && is_numeric($data['budget_limit']) && $data['budget_limit'] !== '')) ? (float)$data['budget_limit'] : null;
+
+        $stmt = $pdo->prepare('INSERT INTO vehicles (plat, merk, tipe, tahun, jenis, status_penggunaan, status_kendaraan, foto_path, kondisi, current_responsible, budget_category_id, budget_limit) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)');
+        $stmt->execute([
+            $data['plat'], $data['merk'], $data['tipe'], $data['tahun'], $data['jenis'],
+            $data['status_penggunaan'], $data['status_kendaraan'], $data['foto_path'],
+            $data['kondisi'], $data['current_responsible'],
+            $budget_cat, $budget_limit
+        ]);
         return $pdo->lastInsertId();
     }
+
     public static function update($id, $data)
     {
         $pdo = Database::getInstance()->pdo();
-        $stmt = $pdo->prepare('UPDATE vehicles SET plat=?, merk=?, tipe=?, tahun=?, jenis=?, status_penggunaan=?, status_kendaraan=?, foto_path=?, kondisi=?, current_responsible=? WHERE id=?');
-        $stmt->execute([$data['plat'], $data['merk'], $data['tipe'], $data['tahun'], $data['jenis'], $data['status_penggunaan'], $data['status_kendaraan'], $data['foto_path'], $data['kondisi'], $data['current_responsible'], $id]);
+        $fields = [
+            'plat', 'merk', 'tipe', 'tahun', 'jenis',
+            'status_penggunaan', 'status_kendaraan', 'foto_path', 'kondisi', 'current_responsible'
+        ];
+        $set = [];
+        $params = [];
+        foreach ($fields as $f) {
+            $set[] = "$f=?";
+            $params[] = $data[$f];
+        }
+
+        if (array_key_exists('budget_category_id', $data)) {
+            $set[] = "budget_category_id=?";
+            $params[] = !empty($data['budget_category_id']) ? $data['budget_category_id'] : null;
+        }
+
+        if (array_key_exists('budget_limit', $data)) {
+            $set[] = "budget_limit=?";
+            $params[] = (!empty($data['budget_limit']) || (isset($data['budget_limit']) && is_numeric($data['budget_limit']) && $data['budget_limit'] !== '')) ? (float)$data['budget_limit'] : null;
+        }
+
+        $params[] = $id;
+        $sql = 'UPDATE vehicles SET ' . implode(', ', $set) . ' WHERE id=?';
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute($params);
     }
+
     public static function delete($id)
     {
         $pdo = Database::getInstance()->pdo();

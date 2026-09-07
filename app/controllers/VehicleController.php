@@ -8,6 +8,8 @@ use Models\Vehicle;
 use Models\AuditLog;
 use Helpers\CSRF;
 use Models\UsageHistory;
+use Models\Maintenance;
+use Models\MaintenanceDetail;
 
 class VehicleController extends Controller
 {
@@ -49,7 +51,8 @@ class VehicleController extends Controller
     public function create()
     {
         Auth::requireAdmin();
-        $this->render('vehicle/create');
+        $categories = \Models\Budget::allCategories();
+        $this->render('vehicle/create', compact('categories'));
     }
     public function store()
     {
@@ -106,8 +109,9 @@ class VehicleController extends Controller
             'status_penggunaan' => $_POST['status_penggunaan'],
             'status_kendaraan' => $_POST['status_kendaraan'],
             'foto_path' => $foto_path,
-            // Tidak ada current_responsible di sini; biarkan null dulu
-            'current_responsible' => null
+            'current_responsible' => null,
+            'budget_category_id' => !empty($_POST['budget_category_id']) ? $_POST['budget_category_id'] : null,
+            'budget_limit' => (!empty($_POST['budget_limit']) || (isset($_POST['budget_limit']) && is_numeric($_POST['budget_limit']) && $_POST['budget_limit'] !== '')) ? (float)$_POST['budget_limit'] : null
         ];
 
         $id = Vehicle::create($data);
@@ -119,7 +123,8 @@ class VehicleController extends Controller
     {
         Auth::requireAdmin();
         $v = Vehicle::find($_GET['id']);
-        $this->render('vehicle/edit', compact('v'));
+        $categories = \Models\Budget::allCategories();
+        $this->render('vehicle/edit', compact('v', 'categories'));
     }
     public function update()
     {
@@ -178,8 +183,9 @@ class VehicleController extends Controller
             'status_penggunaan' => $_POST['status_penggunaan'],
             'status_kendaraan' => $_POST['status_kendaraan'],
             'foto_path' => $foto_path,
-            // Jangan diubah manual; akan diisi otomatis oleh UsageHistory::create()
-            'current_responsible' => $v['current_responsible'] // pertahankan nilai lama
+            'current_responsible' => $v['current_responsible'],
+            'budget_category_id' => !empty($_POST['budget_category_id']) ? $_POST['budget_category_id'] : null,
+            'budget_limit' => (!empty($_POST['budget_limit']) || (isset($_POST['budget_limit']) && is_numeric($_POST['budget_limit']) && $_POST['budget_limit'] !== '')) ? (float)$_POST['budget_limit'] : null
         ];
 
         Vehicle::update($id, $data);
@@ -209,6 +215,13 @@ class VehicleController extends Controller
         $history = \Models\UsageHistory::byVehicle($id);
         $current = \Models\UsageHistory::current($id);
 
-        $this->render('vehicle/show', compact('v', 'history', 'current'));
+        // Ambil riwayat pemeliharaan & rincian komponen
+        $maintenance_list = Maintenance::byVehicle($id);
+        foreach ($maintenance_list as &$m) {
+            $m['details'] = MaintenanceDetail::byMaintenance($m['id']);
+        }
+        unset($m);
+
+        $this->render('vehicle/show', compact('v', 'history', 'current', 'maintenance_list'));
     }
 }

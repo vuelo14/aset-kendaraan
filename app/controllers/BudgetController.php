@@ -23,7 +23,9 @@ class BudgetController extends Controller
         unset($u);
 
 
-        $this->render('budget/index', compact('budget_monitoring', 'unit_budget_monitoring'));
+        $categories = Budget::allCategories();
+
+        $this->render('budget/index', compact('budget_monitoring', 'unit_budget_monitoring', 'categories'));
     }
 
     public function edit()
@@ -51,4 +53,31 @@ class BudgetController extends Controller
         $_SESSION['success'] = "Pengaturan anggaran berhasil diperbarui!";
         header('Location: /budget');
     }
+
+    public function updateVehicle()
+    {
+        Auth::requireAdmin();
+        if (!CSRF::check($_POST['csrf'] ?? ''))
+            die('CSRF invalid');
+
+        $vehicle_id = $_POST['vehicle_id'] ?? null;
+        if (!$vehicle_id) {
+            header('Location: /budget');
+            exit;
+        }
+
+        Budget::updateVehicleBudget($vehicle_id, [
+            'budget_limit' => $_POST['budget_limit'] ?? null,
+            'budget_category_id' => $_POST['budget_category_id'] ?? null
+        ]);
+
+        \Models\AuditLog::log('update_vehicle_budget', 'vehicles', $vehicle_id, [
+            'budget_limit' => $_POST['budget_limit'] ?? null,
+            'budget_category_id' => $_POST['budget_category_id'] ?? null
+        ]);
+
+        $_SESSION['success'] = "Pagu anggaran unit kendaraan berhasil diperbarui!";
+        header('Location: /budget');
+    }
 }
+

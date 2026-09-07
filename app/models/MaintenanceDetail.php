@@ -34,6 +34,41 @@ class MaintenanceDetail
         self::updateTotalBiaya($data['maintenance_id']);
     }
 
+    public static function find($id)
+    {
+        $pdo = Database::getInstance()->pdo();
+        $sql = "SELECT d.*, k.nama, k.jenis, k.satuan
+                FROM maintenance_details d
+                JOIN komponen k ON d.komponen_id = k.id
+                WHERE d.id = ?";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([$id]);
+        return $stmt->fetch();
+    }
+
+    public static function update($id, $data)
+    {
+        $pdo = Database::getInstance()->pdo();
+        $subtotal = $data['jumlah'] * $data['harga_satuan'];
+        $sql = "UPDATE maintenance_details 
+                SET jumlah = ?, harga_satuan = ?, subtotal = ? 
+                WHERE id = ?";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([
+            $data['jumlah'],
+            $data['harga_satuan'],
+            $subtotal,
+            $id
+        ]);
+
+        $stmt = $pdo->prepare("SELECT maintenance_id FROM maintenance_details WHERE id = ?");
+        $stmt->execute([$id]);
+        $row = $stmt->fetch();
+        if ($row) {
+            self::updateTotalBiaya($row['maintenance_id']);
+        }
+    }
+
     public static function delete($id)
     {
         $pdo = Database::getInstance()->pdo();

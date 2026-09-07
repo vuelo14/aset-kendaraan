@@ -4,7 +4,8 @@ namespace Core; use PDO;
 class Database {
     private static $instance = null; private $pdo;
     private function __construct(){
-        $dsn = 'mysql:host=' . DB_HOST . ';dbname=' . DB_NAME . ';charset=utf8mb4';
+        $port = (defined('DB_PORT') && DB_PORT) ? ';port=' . DB_PORT : '';
+        $dsn = 'mysql:host=' . DB_HOST . $port . ';dbname=' . DB_NAME . ';charset=utf8mb4';
         $opts = [PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION, PDO::ATTR_DEFAULT_FETCH_MODE=>PDO::FETCH_ASSOC];
         $this->pdo = new PDO($dsn, DB_USER, DB_PASS, $opts);
     }

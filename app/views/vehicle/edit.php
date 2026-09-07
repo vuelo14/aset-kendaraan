@@ -28,5 +28,27 @@
     </select></div>
 
   <div class="col-md-3"><label class="form-label">Foto</label><input type="file" name="foto" class="form-control" accept="image/*"></div>
+  <div class="col-md-3">
+    <label class="form-label">Kategori Anggaran</label>
+    <select name="budget_category_id" class="form-select">
+      <option value="">-- Pilih Kategori --</option>
+      <?php if (!empty($categories)): foreach ($categories as $cat): ?>
+        <option value="<?= $cat['id'] ?>" <?= ($v['budget_category_id'] == $cat['id']) ? 'selected' : '' ?>>
+          <?= htmlspecialchars($cat['category_name']) ?>
+          <?php if ($cat['max_unit_budget']): ?>
+            (Pagu: Rp <?= number_format($cat['max_unit_budget'], 0, ',', '.') ?>)
+          <?php endif; ?>
+        </option>
+      <?php endforeach; endif; ?>
+    </select>
+  </div>
+  <div class="col-md-3">
+    <label class="form-label">Pagu Anggaran Khusus (Rp)</label>
+    <div class="input-group">
+      <span class="input-group-text">Rp</span>
+      <input type="number" step="1000" min="0" name="budget_limit" class="form-control fw-bold" value="<?= htmlspecialchars($v['budget_limit'] ?? '') ?>" placeholder="Kosongkan jika ikut kategori">
+    </div>
+    <small class="text-muted">Opsional (mengatur pagu spesifik mobil ini)</small>
+  </div>
   <div class="col-12"><button class="btn btn-primary">Simpan</button> <a href="/vehicles" class="btn btn-secondary">Batal</a></div>
 </form>

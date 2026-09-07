@@ -1,8 +1,13 @@
 {
   "name": "disnaker/kendaraan",
+  "version": "1.2.0",
   "type": "project",
   "require": {
     "dompdf/dompdf": "^3.1",
-    "phpoffice/phpspreadsheet": "^2.2"
+    "phpoffice/phpspreadsheet": "^2.2",
+    "vlucas/phpdotenv": "^5.7"
+  },
+  "scripts": {
+    "serve": "php -S localhost:8080 -t public public/index.php"
   }
 }

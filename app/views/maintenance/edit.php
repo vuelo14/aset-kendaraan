@@ -3,6 +3,10 @@
     <form method="post" action="/maintenance/update" class="row g-3">
         <input type="hidden" name="csrf" value="<?= Helpers\CSRF::token() ?>">
         <input type="hidden" name="id" value="<?= $maintenance['id'] ?>">
+        <?php $redirect = $_GET['redirect'] ?? ''; ?>
+        <?php if (!empty($redirect)): ?>
+            <input type="hidden" name="redirect" value="<?= htmlspecialchars($redirect) ?>">
+        <?php endif; ?>
 
         <div class="col-md-4">
             <label class="form-label">Kendaraan</label>
@@ -37,7 +41,7 @@
         </div>
         <div class="col-12 d-flex gap-2">
             <button class="btn btn-primary">Update</button>
-            <a href="/maintenance" class="btn btn-secondary">Batal</a>
+            <a href="<?= !empty($redirect) ? htmlspecialchars($redirect) : '/maintenance' ?>" class="btn btn-secondary">Batal</a>
         </div>
     </form>
 </div>

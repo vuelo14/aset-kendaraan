@@ -19,8 +19,9 @@ $urlPath = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
 <body data-bs-theme="light">
   <nav id="sidebar" class="bg-dark text-white border-end">
-    <div class="sidebar-header p-3 border-bottom border-secondary">
-      <h5 class="mb-0 px-2"><i class="bi bi-cpu-fill me-2"></i> <span>Kendaraan</span></h5>
+    <div class="sidebar-header p-3 border-bottom border-secondary d-flex justify-content-between align-items-center">
+      <h5 class="mb-0 px-2 text-truncate"><i class="bi bi-cpu-fill me-2"></i> <span>Kendaraan</span></h5>
+      <span class="badge bg-secondary-subtle text-secondary-emphasis border border-secondary-subtle rounded-pill font-monospace" style="font-size: 0.7rem;">v<?= defined('APP_VERSION') ? APP_VERSION : '1.2.0' ?></span>
     </div>
     <div class="nav flex-column py-3">
       <?php if (Auth::check()): ?>
@@ -83,6 +84,7 @@ $urlPath = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
         <a class="navbar-brand d-flex align-items-center" href="dashboard">
           <i class="d-none d-sm-inline bi bi-car-front-fill me-2"></i>
           <span class="d-none d-sm-inline">Aset Kendaraan</span>
+          <span class="badge bg-primary-subtle text-primary border border-primary-subtle rounded-pill ms-2 font-monospace d-none d-sm-inline" style="font-size: 0.7rem;">v<?= defined('APP_VERSION') ? APP_VERSION : '1.2.0' ?></span>
         </a>
 
         <div class="ms-auto d-flex align-items-center">

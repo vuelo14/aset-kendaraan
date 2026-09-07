@@ -1,4 +1,13 @@
 <?php
+// Router handler untuk PHP Built-in Server (composer serve)
+if (php_sapi_name() === 'cli-server') {
+    $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+    $file = __DIR__ . $uri;
+    if ($uri !== '/' && file_exists($file) && !is_dir($file)) {
+        return false;
+    }
+}
+
 session_start();
 require_once __DIR__ . '/../app/config/config.php';
 require_once __DIR__ . '/../vendor/autoload.php';
@@ -29,8 +38,13 @@ $router->post('/maintenance/delete', 'MaintenanceController@delete');
 $router->get('/maintenance/byVehicle', 'MaintenanceController@byVehicle');
 $router->get('/maintenance/details', 'MaintenanceController@details');
 $router->post('/maintenance/details/store', 'MaintenanceController@storeDetail');
+$router->post('/maintenance/details/update', 'MaintenanceController@updateDetail');
 $router->post('/maintenance/details/delete', 'MaintenanceController@deleteDetail');
+$router->post('/maintenance/details/ai-recommendation', 'MaintenanceController@aiRecommendation');
+$router->post('/maintenance/details/ai-apply-batch', 'MaintenanceController@applyAiRecommendations');
 $router->get('/maintenance/nota', 'MaintenanceController@nota');
+$router->post('/maintenance/unlock', 'MaintenanceController@unlock');
+$router->post('/maintenance/lock', 'MaintenanceController@lock');
 
 $router->get('/komponen', 'KomponenController@index');
 $router->post('/komponen/store', 'KomponenController@store');
@@ -41,6 +55,7 @@ $router->post('/komponen/delete', 'KomponenController@delete');
 $router->get('/budget', 'BudgetController@index');
 $router->get('/budget/edit', 'BudgetController@edit');
 $router->post('/budget/update', 'BudgetController@update');
+$router->post('/budget/vehicle/update', 'BudgetController@updateVehicle');
 
 
 $router->get('/tax', 'TaxController@index');

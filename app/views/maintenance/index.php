@@ -87,7 +87,15 @@
                                     <td><?= htmlspecialchars($m['jenis']) ?></td>
                                     <td><?= htmlspecialchars($m['bengkel'] ?? '-') ?></td>
                                     <td class="fw-bold">Rp <?= number_format($m['biaya'], 0, ',', '.') ?></td>
-                                    <td><?= htmlspecialchars($m['notes'] ?? '-') ?></td>
+                                    <?php $isRealisasi = (stripos($m['notes'] ?? '', 'realisasi') !== false); ?>
+                                    <td>
+                                        <?= htmlspecialchars($m['notes'] ?? '-') ?>
+                                        <?php if ($isRealisasi): ?>
+                                            <span class="badge bg-success-subtle text-success border border-success-subtle ms-1" style="font-size: 0.72rem;">
+                                                <i class="bi bi-lock-fill me-1"></i>Realisasi
+                                            </span>
+                                        <?php endif; ?>
+                                    </td>
                                     <td class="text-end">
                                         <div class="btn-group btn-group-sm">
                                             <a href="/maintenance/details?id=<?= $m['id'] ?>" class="btn btn-outline-info"
@@ -99,18 +107,30 @@
                                                 <i class="bi bi-printer"></i>
                                             </a>
                                             <?php if (Core\Auth::role() === 'admin'): ?>
-                                                <a href="/maintenance/edit?id=<?= $m['id'] ?>" class="btn btn-outline-secondary"
-                                                    title="Edit">
-                                                    <i class="bi bi-pencil"></i>
-                                                </a>
-                                                <form method="post" action="/maintenance/delete" class="d-inline"
-                                                    onsubmit="return confirm('Hapus data pemeliharaan ini?')">
-                                                    <input type="hidden" name="csrf" value="<?= Helpers\CSRF::token() ?>">
-                                                    <input type="hidden" name="id" value="<?= $m['id'] ?>">
-                                                    <button class="btn btn-outline-danger" title="Hapus">
-                                                        <i class="bi bi-trash"></i>
-                                                    </button>
-                                                </form>
+                                                <?php if ($isRealisasi): ?>
+                                                    <form method="post" action="/maintenance/unlock" class="d-inline"
+                                                        onsubmit="return confirm('Buka kunci status Realisasi agar data pemeliharaan ini dapat diedit kembali?')">
+                                                        <input type="hidden" name="csrf" value="<?= Helpers\CSRF::token() ?>">
+                                                        <input type="hidden" name="id" value="<?= $m['id'] ?>">
+                                                        <input type="hidden" name="redirect" value="/maintenance">
+                                                        <button type="submit" class="btn btn-outline-success" title="Status Realisasi (Terkunci): Klik untuk Buka Kunci">
+                                                            <i class="bi bi-unlock"></i>
+                                                        </button>
+                                                    </form>
+                                                <?php else: ?>
+                                                    <a href="/maintenance/edit?id=<?= $m['id'] ?>" class="btn btn-outline-secondary"
+                                                        title="Edit">
+                                                        <i class="bi bi-pencil"></i>
+                                                    </a>
+                                                    <form method="post" action="/maintenance/delete" class="d-inline"
+                                                        onsubmit="return confirm('Hapus data pemeliharaan ini?')">
+                                                        <input type="hidden" name="csrf" value="<?= Helpers\CSRF::token() ?>">
+                                                        <input type="hidden" name="id" value="<?= $m['id'] ?>">
+                                                        <button class="btn btn-outline-danger" title="Hapus">
+                                                            <i class="bi bi-trash"></i>
+                                                        </button>
+                                                    </form>
+                                                <?php endif; ?>
                                             <?php endif; ?>
                                         </div>
                                     </td>
